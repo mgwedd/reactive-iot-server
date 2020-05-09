@@ -1,33 +1,25 @@
-require( 'dotenv' ).config();
-const express = require( 'express' );
-const morgan = require( 'morgan');
-const cors = require( 'cors' );
-const helmet = require( 'helmet' );
-const { NODE_ENV } = require('./config');
+require( 'dotenv' ).config()
+const express = require( 'express' )
+const morgan = require( 'morgan')
+const cors = require( 'cors' )
+const helmet = require( 'helmet' )
+const { NODE_ENV } = require('./config')
+const errorHandler = require( './util/errorHandler' )
+const tokenAuth = require( './tokenAuth' )
+const postRouter = require( './routes/postRouter')
 
-const app = express();
+const app = express()
 
-const morganOption = ( NODE_ENV === 'production' )
+const morganOption = NODE_ENV === 'production'
   ? 'tiny'
-  : 'common';
-app.use( morgan( morganOption ) );
-app.use( cors() );
-app.use( helmet() );
+  : 'common'
+app.use( morgan( morganOption ) )
+app.use( cors() )
+app.use( helmet() )
+app.use( tokenAuth )
 
-app.get( '/', ( req, res ) => {
-  res.send( 'Hello, Boilerplate!' );
-});
+app.use( '/api', postRouter )
 
-app.use(function errorHandler( error, req, res, next ) {
-  let response;
-  if ( NODE_ENV === 'production' ) {
-    response = { error: { message: 'Server Error' } };
-  } else {
-    console.error( error );
-    response = { message: error.message, error };
-  }
-  res.status( 500 ).json( response )
-});
+app.use( errorHandler )
 
-
-module.exports = app;
+module.exports = app
