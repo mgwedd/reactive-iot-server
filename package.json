@@ -70,6 +70,7 @@
         "mocha": "^6.1.4",
         "ndb": "^1.0.45",
         "nodemon": "^1.19.1",
+        "postgrator": "^4.0.0",
         "supertest": "^4.0.2"
     },
     "dependencies": {
