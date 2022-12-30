@@ -67,7 +67,7 @@
         "eslint-config-airbnb-base": "^14.1.0",
         "eslint-plugin-chai-friendly": "^0.6.0",
         "eslint-plugin-import": "^2.20.2",
-        "mocha": "^6.1.4",
+        "mocha": "^10.2.0",
         "ndb": "^1.0.45",
         "nodemon": "^1.19.1",
         "postgrator": "^4.0.0",
